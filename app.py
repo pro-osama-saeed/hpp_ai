@@ -50,14 +50,22 @@ def user_input_features():
     Latitude = st.sidebar.slider('Latitude', 32.0, 42.0, 34.0)
     Longitude = st.sidebar.slider('Longitude', -124.0, -114.0, -118.0)
     
+   # ... inside user_input_features() ...
+
+    # OLD CODE (Causes Error) ❌
+    # data = { ...
+    #         'Latitude': Latitude,
+    #         'Longitude': Longitude}
+
+    # NEW CODE (Fixed) ✅
     data = {'MedInc': MedInc,
             'HouseAge': HouseAge,
             'AveRooms': AveRooms,
             'AveBedrms': AveBedrms,
             'Population': Population,
             'AveOccup': AveOccup,
-            'Latitude': Latitude,
-            'Longitude': Longitude}
+            'latitude': Latitude,   # <--- Change this to lowercase
+            'longitude': Longitude} # <--- Change this to lowercase
     
     return pd.DataFrame(data, index=[0])
 
