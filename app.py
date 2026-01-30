@@ -2,9 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.datasets import fetch_california_housing
-from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import r2_score
 
 # --- 1. Title and Description ---
 st.title("🏡 California House Price Predictor")
@@ -14,7 +12,6 @@ This app uses a **Random Forest** model trained on 1990 census data.
 """)
 
 # --- 2. Load and Train the Model (Cached) ---
-# We use @st.cache_resource so it only trains ONCE, not every time you click a button.
 @st.cache_resource
 def load_and_train():
     housing = fetch_california_housing()
@@ -28,11 +25,11 @@ def load_and_train():
     model = RandomForestRegressor(n_estimators=50, random_state=42)
     model.fit(X, y)
     
-    return model, housing.feature_names
+    return model
 
 # Show a loading spinner while training
 with st.spinner("Training the AI... (This may take a moment)"):
-    model, feature_names = load_and_train()
+    model = load_and_train()
 
 st.success("Model Trained Successfully!")
 
@@ -50,25 +47,15 @@ def user_input_features():
     Latitude = st.sidebar.slider('Latitude', 32.0, 42.0, 34.0)
     Longitude = st.sidebar.slider('Longitude', -124.0, -114.0, -118.0)
     
-   # ... inside user_input_features() ...
-
-    # OLD CODE (Causes Error) ❌
-    # data = { ...
-    #         'Latitude': Latitude,
-    #         'Longitude': Longitude}
-
-   def user_input_features():
-    # ... sliders ...
-    
-    # CHANGE THESE BACK TO CAPITALIZED
+    # We keep these Capitalized for the AI model
     data = {'MedInc': MedInc,
             'HouseAge': HouseAge,
             'AveRooms': AveRooms,
             'AveBedrms': AveBedrms,
             'Population': Population,
             'AveOccup': AveOccup,
-            'Latitude': Latitude,   # Capital L (For the AI)
-            'Longitude': Longitude} # Capital L (For the AI)
+            'Latitude': Latitude,
+            'Longitude': Longitude}
     
     return pd.DataFrame(data, index=[0])
 
@@ -76,13 +63,8 @@ def user_input_features():
 input_df = user_input_features()
 
 # --- 4. Show User Input ---
-# ... inside the button logic ...
-
-    st.subheader(f"💰 Estimated Price: ${real_price:,.2f}")
-    
-    # NEW CODE: Create a copy with lowercase names just for the map
-    map_df = input_df.rename(columns={'Latitude': 'latitude', 'Longitude': 'longitude'})
-    st.map(map_df)
+st.subheader("User Input parameters")
+st.write(input_df)
 
 # --- 5. Make Prediction ---
 if st.button("Predict Price"):
@@ -93,5 +75,6 @@ if st.button("Predict Price"):
     
     st.subheader(f"💰 Estimated Price: ${real_price:,.2f}")
     
-    # Bonus: Show where this house is on a map
-    st.map(input_df)
+    # FIX: Rename columns to lowercase just for the map
+    map_df = input_df.rename(columns={'Latitude': 'latitude', 'Longitude': 'longitude'})
+    st.map(map_df)
