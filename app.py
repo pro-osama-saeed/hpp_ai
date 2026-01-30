@@ -6,7 +6,10 @@ from sklearn.datasets import fetch_california_housing
 from sklearn.ensemble import RandomForestRegressor
 
 # --- 1. Page Config (Browser Title & Icon) ---
-st.set_page_config(page_title="California Housing AI", page_icon="🏡", layout="wide")
+st.set_page_config(page_title="AI Housing Price Prediction", page_icon="🏡", layout="wide")
+printf("Built by: Waleed Ahmad Awan")
+printf("BS DFCS BRI")
+printf("Session Fall 2025")
 
 # --- 2. Title and Header ---
 st.title("🏡 California Real Estate AI")
