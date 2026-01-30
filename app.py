@@ -57,15 +57,18 @@ def user_input_features():
     #         'Latitude': Latitude,
     #         'Longitude': Longitude}
 
-    # NEW CODE (Fixed) ✅
+   def user_input_features():
+    # ... sliders ...
+    
+    # CHANGE THESE BACK TO CAPITALIZED
     data = {'MedInc': MedInc,
             'HouseAge': HouseAge,
             'AveRooms': AveRooms,
             'AveBedrms': AveBedrms,
             'Population': Population,
             'AveOccup': AveOccup,
-            'latitude': Latitude,   # <--- Change this to lowercase
-            'longitude': Longitude} # <--- Change this to lowercase
+            'Latitude': Latitude,   # Capital L (For the AI)
+            'Longitude': Longitude} # Capital L (For the AI)
     
     return pd.DataFrame(data, index=[0])
 
@@ -73,8 +76,13 @@ def user_input_features():
 input_df = user_input_features()
 
 # --- 4. Show User Input ---
-st.subheader("User Input parameters")
-st.write(input_df)
+# ... inside the button logic ...
+
+    st.subheader(f"💰 Estimated Price: ${real_price:,.2f}")
+    
+    # NEW CODE: Create a copy with lowercase names just for the map
+    map_df = input_df.rename(columns={'Latitude': 'latitude', 'Longitude': 'longitude'})
+    st.map(map_df)
 
 # --- 5. Make Prediction ---
 if st.button("Predict Price"):
