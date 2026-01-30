@@ -7,12 +7,12 @@ from sklearn.ensemble import RandomForestRegressor
 
 # --- 1. Page Config (Browser Title & Icon) ---
 st.set_page_config(page_title="AI Housing Price Prediction", page_icon="🏡", layout="wide")
+
+# --- 2. Title and Header ---
+st.title("AI Housing Price Prediction")
 st.write("Built by: Waleed Ahmad Awan")
 st.write("BS DFCS BRI")
 st.write("Session Fall 2025")
-
-# --- 2. Title and Header ---
-st.title("🏡 California Real Estate AI")
 st.markdown("""
 <style>
     .big-font { font-size:20px !important; }
