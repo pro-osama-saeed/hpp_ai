@@ -10,9 +10,7 @@ st.set_page_config(page_title="AI Housing Price Prediction", page_icon="🏡", l
 
 # --- 2. Title and Header ---
 st.title("AI Housing Price Prediction")
-st.write("Built by: Waleed Ahmad Awan")
-st.write("BS DFCS BRI")
-st.write("Session Fall 2025")
+st.write("Built by: Waleed Ahmad Awan || BS DFCS BRI || Session Fall 2025")
 st.markdown("""
 <style>
     .big-font { font-size:20px !important; }
